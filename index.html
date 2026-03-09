@@ -3,257 +3,730 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İzmir Seyahat Maliyet Kıyaslayıcı: Araba vs Uçak</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>2025-2026 Matematik Ligi Eleme Turları</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+        body {
+            background-color: #f0f4f8; 
+            color: #0a1232; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden; 
+        }
+
+        .super-title {
+            text-align: center;
+            background-color: #002266;
+            color: #ffffff;
+            padding: 15px 0;
+            margin: 0;
+            font-size: 24px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .grade-tabs {
+            display: flex;
+            justify-content: center;
+            background-color: #003399;
+            padding: 10px 0;
+            gap: 20px;
+        }
+
+        .grade-btn {
+            background-color: #0044cc;
+            color: #a0c4ff;
+            border: 2px solid transparent;
+            padding: 12px 40px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .grade-btn.active {
+            background-color: #ffffff;
+            color: #002266;
+            border-color: #ffffff;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+        }
+
+        .main-title {
+            text-align: center;
+            background-color: #dde6f0; 
+            padding: 15px 0 10px 0;
+            border-bottom: 1px solid #b4c6e7;
+        }
+
+        .main-title h2 { margin: 0; color: #0044cc; text-transform: uppercase; letter-spacing: 2px; font-size: 22px; }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            background-color: #dde6f0;
+            padding-bottom: 10px;
+            gap: 15px;
+        }
+
+        .tab-btn {
+            background-color: #ffffff;
+            color: #0055ff;
+            border: 2px solid #0055ff;
+            padding: 8px 20px;
+            font-size: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .tab-btn.active {
+            background-color: #0055ff;
+            color: #fff;
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: center;
+            padding: 10px 15px 15px 15px;
+            background-color: #dde6f0;
+            border-bottom: 2px solid #0055ff;
+            gap: 15px;
+        }
+
+        button {
+            background-color: #0055ff;
+            color: white;
+            border: 1px solid #00f3ff;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        input[type="file"] { display: none; }
+
+        .bracket-wrapper {
+            flex: 1;
+            width: 100vw;
+            overflow: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .bracket-container {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            min-width: 1600px;
+            height: 100%;
+            gap: 15px;
+        }
+
+        .region-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+
+        .region-btn {
+            background-color: #ffffff;
+            color: #334155;
+            border: 2px solid #cbd5e1;
+            padding: 10px 15px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .region-btn.active { background-color: #0055ff; color: #fff; border-color: #0055ff; }
+
+        .region-container {
+            display: flex;
+            justify-content: flex-start;
+            align-items: stretch;
+            min-width: 1000px;
+            height: calc(100% - 60px);
+            gap: 35px;
+            padding: 0 50px;
+        }
+
+        .col { display: flex; flex-direction: column; justify-content: space-around; flex: 1; }
+
+        .match {
+            background: linear-gradient(145deg, #ffffff, #dbeafe);
+            border: 2px solid #0055ff; 
+            border-radius: 8px;
+            margin: 0 2px;
+            font-size: 12px;
+            width: 100%;
+            height: 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .player {
+            height: 24px;
+            line-height: 24px;
+            padding: 0 10px;
+            border-bottom: 2px solid #a0c4ff; 
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: 600; 
+        }
+
+        .player:last-child { border-bottom: none; }
+        .player.winner { background: #0055ff; color: #ffffff; font-weight: 800; }
+
+        .region-match { height: 90px; font-size: 20px; border-width: 3px; border-radius: 12px; }
+        .region-player { height: 45px; line-height: 45px; padding: 0 20px; border-bottom-width: 3px; }
+
+        .final-col { flex: 1.5; display: flex; flex-direction: column; align-items: center; }
+        .final-box {
+            width: 240px;
+            background: linear-gradient(145deg, #fffbe6, #fff1b8);
+            border: 4px solid gold;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            margin: auto; 
+        }
+        .region-final-box { width: 400px; padding: 20px; }
+        .final-title { font-size: 16px; font-weight: bold; color: #423700; margin-bottom: 10px; border-bottom: 2px solid gold; }
+        .finalist-name { background: #ffffff; border: 1px solid #d4af37; border-radius: 4px; padding: 5px; font-weight: 600; margin-bottom: 3px;}
+
+        /* MODAL STİLLERİ */
+        .modal-overlay {
+            display: none; 
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-box {
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 500px;
+            border-top: 8px solid #cc0000;
+        }
+        .modal-box h3 { color: #cc0000; font-size: 24px; margin-bottom: 15px; }
+        .modal-box p { font-size: 17px; color: #222; margin-bottom: 25px; line-height: 1.5; font-weight: 500;}
+        .modal-btn { padding: 12px 25px; font-size: 16px; border-radius: 6px; cursor: pointer; font-weight: bold; border: none; transition: 0.3s; }
+        .modal-btn.primary { background-color: #cc0000; color: white; }
+        .modal-btn.secondary { background-color: #6c757d; color: white; margin-right: 10px; }
+
+        /* SKOR KARTI VE DİĞERLERİ */
+        .score-card { background: #fff; border: 2px solid #cbd5e1; border-radius: 10px; margin-bottom: 15px; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
+        .score-card.paused { border-color: #f59e0b; background: #fffbeb; }
+        .score-card.completed { border-color: #0055ff; background: #f0f8ff; }
+        .score-card-header { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .score-row { display: flex; align-items: center; gap: 10px; }
+        .score-player-name { flex: 1; font-weight: bold; padding: 8px; background: #f8fafc; border-radius: 5px; border: 1px solid #e2e8f0; }
+        .score-player-name.is-winner { background: #0055ff; color: white; }
+        .score-input { width: 60px; padding: 8px; text-align: center; border: 1px solid #ccc; border-radius: 5px; }
+        .score-total { width: 90px; text-align: center; font-weight: bold; color: #0055ff; background: #e6f0ff; padding: 8px; border-radius: 5px; }
+
+        /* YENİDEN EKLENEN IMPORT (SKOR GİRİŞİ) KISMI STİLLERİ */
+        .import-container { max-width: 800px; margin: 0 auto; background: #fff; border-radius: 10px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .import-controls { display: flex; gap: 15px; margin-bottom: 15px; }
+        .import-select { padding: 10px; font-size: 16px; border-radius: 6px; border: 1px solid #cbd5e1; flex: 1; outline: none; }
+        .import-textarea { width: 100%; height: 200px; margin-bottom: 15px; padding: 10px; font-family: monospace; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; resize: vertical;}
+        .import-btn { width: 100%; padding: 15px; background: #10b981; color: white; border: none; font-size: 18px; border-radius: 8px; cursor: pointer;}
+        .import-btn:hover { background: #059669; }
     </style>
 </head>
-<body class="bg-slate-100 min-h-screen flex items-center justify-center p-4">
+<body>
 
-    <div class="bg-white rounded-2xl shadow-2xl max-w-5xl w-full p-6 sm:p-8">
-        <h1 class="text-3xl font-bold text-slate-800 mb-8 text-center">İzmir Git-Gel Seyahat Kıyaslayıcı</h1>
+    <h1 class="super-title">2025-2026 MATEMATİK LİGİ ELEME TURLARI</h1>
+    
+    <div class="grade-tabs">
+        <button id="grade-btn-5" class="grade-btn" onclick="switchGrade(5)">5. SINIFLAR</button>
+        <button id="grade-btn-6" class="grade-btn" onclick="switchGrade(6)">6. SINIFLAR</button>
+        <button id="grade-btn-7" class="grade-btn" onclick="switchGrade(7)">7. SINIFLAR</button>
+    </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="main-title">
+        <h2 id="grade-title">5. SINIFLAR KONTROL PANELİ</h2>
+    </div>
+
+    <div class="tabs">
+        <button id="tab-full" class="tab-btn active" onclick="switchMainTab('full')">Tüm Maçlar</button>
+        <button id="tab-league" class="tab-btn" onclick="switchMainTab('league')">Elemeler</button>
+        <button id="tab-scores" class="tab-btn" onclick="attemptSwitchToScores()">✍️ Maçlar</button>
+        <button id="tab-import" class="tab-btn" onclick="switchMainTab('import')">📊 Skor Girişi</button>
+    </div>
+
+    <div class="toolbar">
+        <button onclick="exportJSON()">Sınıfı Yedekle</button>
+        <button onclick="document.getElementById('file-upload').click()">Dosyadan Yükle</button>
+        <input type="file" id="file-upload" accept=".json" onchange="importJSON(event)">
+        <button onclick="manualSaveToBrowser()" style="background-color: #10b981;">💾 Tarayıcıya Kaydet</button>
+        <button onclick="resetBracket()" style="background-color: #cc0000;">Sınıfı Sıfırla</button>
+    </div>
+
+    <div id="view-full" class="bracket-wrapper">
+        <div class="bracket-container" id="bracket-container"></div>
+    </div>
+
+    <div id="view-league" class="bracket-wrapper" style="display: none;">
+        <div class="region-nav" id="region-nav-container"></div>
+        <div class="region-container" id="region-container"></div>
+    </div>
+
+    <div id="view-scores" class="bracket-wrapper" style="display: none;">
+        <div class="score-manager-container">
+            <div class="score-round-selector" id="score-round-selector"></div>
+            <div id="score-cards-container"></div>
+        </div>
+    </div>
+
+    <div id="view-import" class="bracket-wrapper" style="display: none;">
+        <div class="import-container">
+            <h2 style="margin-top: 0; color: #0044cc;">Excel'den Toplu Skor Aktarımı</h2>
+            <p style="color: #555; margin-bottom: 15px;">Excel veya tablodan <b>"Öğrenci Adı"</b> ve <b>"Puan"</b> sütunlarını kopyalayıp aşağıdaki kutuya yapıştırın.</p>
             
-            <div class="bg-blue-50/50 p-6 rounded-xl border border-blue-100 flex flex-col">
-                <div class="flex items-center gap-3 mb-6 border-b border-blue-200 pb-3">
-                    <span class="text-2xl">🚗</span>
-                    <h2 class="text-xl font-bold text-blue-900">Araba + Otel</h2>
-                </div>
-
-                <div class="space-y-5 flex-grow">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 mb-1 uppercase">Yakıt (L/100km)</label>
-                            <input type="text" inputmode="decimal" id="tuketim" value="6" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none font-medium" oninput="hesapla()">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 mb-1 uppercase">Yakıt Fiyatı (TL)</label>
-                            <input type="text" inputmode="decimal" id="fiyat" value="60" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none font-medium" oninput="hesapla()">
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4 pt-2 border-t border-blue-100">
-                        <div>
-                            <h3 class="text-xs font-bold text-slate-700 mb-2 uppercase">Gidiş Tercihi</h3>
-                            <label class="flex items-center mb-2 cursor-pointer">
-                                <input type="checkbox" id="osmangazi_gidis" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500" onchange="hesapla()">
-                                <span class="ml-2 text-xs text-slate-700 font-medium">Osmangazi (995 ₺)</span>
-                            </label>
-                            <label class="flex items-center cursor-pointer">
-                                <input type="checkbox" id="otoyol_gidis" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500" onchange="hesapla()">
-                                <span class="ml-2 text-xs text-slate-700 font-medium">İzmir Otoyolu (1.470 ₺)</span>
-                            </label>
-                        </div>
-                        <div>
-                            <h3 class="text-xs font-bold text-slate-700 mb-2 uppercase">Dönüş Tercihi</h3>
-                            <label class="flex items-center mb-2 cursor-pointer">
-                                <input type="checkbox" id="osmangazi_donus" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500" onchange="hesapla()">
-                                <span class="ml-2 text-xs text-slate-700 font-medium">Osmangazi (995 ₺)</span>
-                            </label>
-                            <label class="flex items-center cursor-pointer">
-                                <input type="checkbox" id="otoyol_donus" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500" onchange="hesapla()">
-                                <span class="ml-2 text-xs text-slate-700 font-medium">İzmir Otoyolu (1.470 ₺)</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="bg-blue-100/60 p-4 rounded-lg border border-blue-200">
-                        <span class="block text-xs font-bold text-blue-900 mb-2 uppercase tracking-wide">🗺️ Seçilen Rotalar (Google Maps)</span>
-                        <div class="flex flex-col gap-2">
-                            <a id="linkGidis" href="#" target="_blank" class="text-sm font-medium text-blue-700 hover:text-blue-900 hover:underline flex items-center gap-2 bg-white/50 px-3 py-2 rounded-md transition-colors">
-                                <span>📍 Gidiş Rotasını Aç (Hesaplanan: <span id="gidisKm"></span> km)</span>
-                            </a>
-                            <a id="linkDonus" href="#" target="_blank" class="text-sm font-medium text-blue-700 hover:text-blue-900 hover:underline flex items-center gap-2 bg-white/50 px-3 py-2 rounded-md transition-colors">
-                                <span>📍 Dönüş Rotasını Aç (Hesaplanan: <span id="donusKm"></span> km)</span>
-                            </a>
-                        </div>
-                        <p class="text-[10px] text-slate-500 mt-2 leading-tight">* Linkler işaretlediğiniz köprü/otoyol tercihlerine göre özel olarak oluşturulur.</p>
-                    </div>
-
-                    <div class="pt-3 border-t border-blue-200 space-y-2">
-                        <div class="flex justify-between items-center text-sm bg-white/50 p-2 rounded-lg border border-blue-100">
-                            <span class="font-semibold text-slate-600 uppercase text-xs">🚗 Toplam Yakıt (<span id="toplamMesafeGosterge"></span>):</span>
-                            <span id="toplamYakitGosterge" class="font-bold text-slate-800">0 ₺</span>
-                        </div>
-                        
-                        <div class="flex justify-between items-center text-sm bg-white/50 p-2 rounded-lg border border-blue-100">
-                            <span class="font-semibold text-slate-600 uppercase text-xs">🛣️ Toplam Otoyol/Köprü:</span>
-                            <span id="toplamGiseGosterge" class="font-bold text-slate-800">0 ₺</span>
-                        </div>
-
-                        <div class="flex justify-between items-center text-sm bg-white/50 p-2 rounded-lg border border-blue-100">
-                            <span class="font-semibold text-slate-600 uppercase text-xs">🏨 Otel Ücreti:</span>
-                            <span class="font-bold text-slate-800">4.310 ₺ <span class="text-xs font-medium text-green-600 ml-1">(Ödendi)</span></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-4 bg-blue-200/50 p-4 rounded-xl text-right border border-blue-200 shadow-sm">
-                    <span class="text-sm font-semibold text-blue-800 block mb-1">Araba + Otel Toplamı:</span>
-                    <span id="arabaToplamTutar" class="text-3xl font-black text-blue-900 tracking-tight">0 ₺</span>
-                </div>
+            <div class="import-controls">
+                <select id="import-round" class="import-select">
+                    <option value="0">Hedef Tur: 1. Tur</option>
+                    <option value="1">Hedef Tur: 2. Tur</option>
+                    <option value="2">Hedef Tur: 3. Tur</option>
+                </select>
+                <select id="import-match" class="import-select">
+                    <option value="m1">Hedef Maç: 1. Maç Skorları</option>
+                    <option value="m2">Hedef Maç: 2. Maç Skorları</option>
+                </select>
             </div>
 
-            <div class="bg-orange-50/50 p-6 rounded-xl border border-orange-100 flex flex-col">
-                <div class="flex items-center gap-3 mb-6 border-b border-orange-200 pb-3">
-                    <span class="text-2xl">✈️</span>
-                    <h2 class="text-xl font-bold text-orange-900">Uçak Bileti</h2>
-                </div>
-
-                <div class="space-y-4 flex-grow">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 mb-1 uppercase">Tek Yön Bilet Fiyatı (1 Kişi - TL)</label>
-                        <input type="text" inputmode="decimal" id="biletFiyati" value="3200" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 outline-none font-medium" oninput="hesapla()">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 mb-1 uppercase">Kişi Sayısı</label>
-                        <div class="w-full bg-slate-200 border border-slate-300 rounded-lg px-3 py-2 font-bold text-slate-600 flex justify-between items-center cursor-not-allowed">
-                            <span>2</span>
-                            <span class="text-xs font-medium text-orange-600 bg-orange-100 px-2 py-0.5 rounded-full">Sabit</span>
-                        </div>
-                    </div>
-
-                    <p class="text-xs text-slate-500 mt-2 italic">* Sistem girdiğin bilet fiyatını otomatik olarak <span class="font-semibold">gidiş-dönüş (x2) ve 2 kişi</span> olacak şekilde hesaplar.</p>
-                </div>
-
-                <div class="mt-auto pt-6">
-                    <div class="bg-orange-200/50 p-4 rounded-xl text-right border border-orange-200 shadow-sm">
-                        <span class="text-sm font-semibold text-orange-800 block mb-1">Uçak Toplamı (Git-Gel 2 Kişi):</span>
-                        <span id="ucakToplamTutar" class="text-3xl font-black text-orange-900 tracking-tight">0 ₺</span>
-                    </div>
-                </div>
+            <textarea id="import-textarea" class="import-textarea" placeholder="Örnek:&#10;Bade Şahin&#9;15&#10;Kerem Tekin&#9;12"></textarea>
+            <button class="import-btn" onclick="processExcelImport()">📥 Puanları İşle</button>
+            <div id="import-log" style="margin-top:15px; font-size:14px; background:#f8fafc; padding:10px; border-radius:6px; border:1px solid #e2e8f0;">
+                <i>İşlem sonuçları ve hatalar burada görünecektir...</i>
             </div>
-
         </div>
+    </div>
 
-        <div id="sonucKutusu" class="mt-8 p-6 rounded-xl text-center border-2 transition-colors duration-300 shadow-sm">
-            <h3 class="text-sm font-bold text-slate-500 mb-3 uppercase tracking-wider">Sonuç ve Kıyaslama</h3>
-            <div id="sonucMetni" class="text-3xl font-black">Değerleri girin...</div>
-            <div id="farkMetni" class="text-lg font-medium mt-2 text-slate-700"></div>
+    <div id="warning-modal" class="modal-overlay">
+        <div class="modal-box">
+            <h3>⚠️ KVKK VE GİZLİLİK UYARISI</h3>
+            <p id="warning-text">Bu bölüm tüm öğrencilerin bireysel sınav sonuçlarını içermektedir. KVKK gereği sınıfta bu ekranın paylaşımı tavsiye edilmez. Karar ve sorumluluk size aittir.</p>
+            <div id="modal-footer">
+                <button id="warning-cancel" class="modal-btn secondary" onclick="closeWarningModal()">İptal Et</button>
+                <button id="warning-confirm" class="modal-btn primary" onclick="processWarning()">Anladım, Onaylıyorum</button>
+            </div>
         </div>
-
     </div>
 
     <script>
-        function formatNumberInput(value) {
-            if (!value) return 0;
-            let cleanValue = value.replace(/,/g, '.');
-            return parseFloat(cleanValue) || 0;
+        // ================= SINIF YAPILANDIRMALARI =================
+        const gradeConfigs = {
+            5: { lsKey: 'matematik_ligi_verileri_5_sinif', roundSizes: [32, 16, 8], finalCount: 8, regions: 9, matches: [
+                {p1:"Ali Oğuz", p2:"Bilge Naz Özcan"}, {p1:"Alara Derin Özyer", p2:"Bürçe Tuba Kurt"}, {p1:"Çınar Berkay Kılınç", p2:"Arya Sağlık"}, {p1:"Asil Turan", p2:"Zeynep Vurucu"},
+                {p1:"Tuna Demirer", p2:"Defne Çim"}, {p1:"Doğa Ateş", p2:"Çağan Akça"}, {p1:"Duru İşeri", p2:"Mert Özel"}, {p1:"Mira Şahin", p2:"Şevval Öztürk"},
+                {p1:"Ahmet Mutay Erdem", p2:"Tanem Lâl Kavaklı"}, {p1:"Eren Özel", p2:"Elis Demir"}, {p1:"İnan Aldemir", p2:"Gökçe Tabak"}, {p1:"Mustafa Kadir Arslanoğlu", p2:"Hüseyin Rüzgar Sağlam"},
+                {p1:"Elif Kılınç", p2:"Poyraz Ahmed Aydınalp"}, {p1:"Nisa Özvardar", p2:"Rüzgar Kıralı"}, {p1:"Doruk Duymaç", p2:"Alp Efe Işık"}, {p1:"Perisu Murathan", p2:"Alp Mete Kuru"},
+                {p1:"Ömer Baran Aytemür", p2:"Alp Öz"}, {p1:"Emir Ünal", p2:"Kerem Işık"}, {p1:"Yusuf Yankı Ekiz", p2:"Yiğit Ali Koç"}, {p1:"Zehra Defne Akbey", p2:"Ela Aldemir"},
+                {p1:"İpek Nazlı Dolu", p2:"Nisan Özlük"}, {p1:"Zeynep Kızılkaya", p2:"Selis Taha"}, {p1:"Ece Üstündağ", p2:"Defne Erçel"}, {p1:"Nil Tabak", p2:"Dora Ilgın Gürsoy"},
+                {p1:"Melisa Esmer", p2:"Doruk Çetin"}, {p1:"Defne Topal", p2:"Ömer Sadettin Keleş"}, {p1:"Kaan Çalışkan", p2:"Mira Dal"}, {p1:"Mustafa Yağız Avcı", p2:"Bartu Uçar"},
+                {p1:"Melih Burak Yağar", p2:"Sedef Güneşli"}, {p1:"Mercan Gözüküçük", p2:"Demir Tülü"}, {p1:"Nikan Kaya", p2:"Alp Koralay"}, {p1:"Kerem Tunçyürek", p2:"Derin Hobat"}
+            ],
+            fullRender: [
+                {r:0, s:0, c:16, align:'left'}, {r:1, s:0, c:8, align:'left'}, {r:2, s:0, c:4, align:'left'},
+                {r:2, s:4, c:4, align:'right'}, {r:1, s:8, c:8, align:'right'}, {r:0, s:16, c:16, align:'right'}
+            ],
+            getRegionRanges: function(rId) {
+                let s = (rId - 1) * 4;
+                return [ {r:0, s: s, c:4}, {r:1, s: s/2, c:2}, {r:2, s: s/4, c:1} ];
+            }},
+            6: { lsKey: 'matematik_ligi_verileri', roundSizes: [28, 14, 7], finalCount: 7, regions: 8, matches: [
+                {p1:"Bade Şahin", p2:"Kerem Tekin"}, {p1:"Mehmet Yaman Mumcu", p2:"İpek Papin"}, {p1:"Aybüke Üze", p2:"Derin Bozkurt"}, {p1:"Abdullah Efe Öztürk", p2:"Berken Arel Ayaz"},
+                {p1:"Halil İbrahim Baysoy", p2:"Atlas Deniz Çelik"}, {p1:"Melis Mira Osmanbaş", p2:"Bade Sezgin"}, {p1:"Batu Durukan", p2:"Abdulkadir Alp Altıntaş"}, {p1:"Sarp Balcıoğlu", p2:"Evin İpek Özgen"},
+                {p1:"Yağmur Elif Bingöl", p2:"Yusuf Gökalp Sakarya"}, {p1:"Cansu Yılmaz", p2:"Tan Soyöz"}, {p1:"Mirza Özbekli", p2:"Arven Türk"}, {p1:"Sare Yılmaz", p2:"Doğukan Arslan"},
+                {p1:"Yaşar Yaman Yolcu", p2:"Ali Kaan Mercan"}, {p1:"Ayşe Serra Kartal", p2:"Mira Gözener"}, {p1:"Mira Temür", p2:"Berat Ağırman"}, {p1:"Selim Sancak", p2:"Cemal Salmanlı"},
+                {p1:"Batu Şahin", p2:"Ayaz Ali Yıldırım"}, {p1:"Aysan Seifzadeh", p2:"Sarp Salihoğlu"}, {p1:"Selen Işık", p2:"Kayra Resul Gözübüyük"}, {p1:"Ayşe Öykü Yıldırım", p2:"Ece Küçükdalgıç"},
+                {p1:"Arhan Akarsu", p2:"Pars Ertaş"}, {p1:"Deniz Göksu", p2:"Mert Rızgar Yeşilmen"}, {p1:"Pelin Usta", p2:"Emir Miras"}, {p1:"Yağız Avcı", p2:"Cem Akdeniz"},
+                {p1:"Derin Yalçınkaya", p2:"Duru Küçüksümbül"}, {p1:"Güney Şimşek", p2:"Poyraz Üngüder"}, {p1:"Doruk Doğan", p2:"Kenan Sarp Çöte"}, {p1:"Lila Ergün", p2:"Elis Teke"}
+            ],
+            fullRender: [
+                {r:0, s:0, c:16, align:'left'}, {r:1, s:0, c:8, align:'left'}, {r:2, s:0, c:4, align:'left'},
+                {r:2, s:4, c:3, align:'right'}, {r:1, s:8, c:6, align:'right'}, {r:0, s:16, c:12, align:'right'}
+            ],
+            getRegionRanges: function(rId) {
+                let s = (rId - 1) * 4;
+                return [ {r:0, s: s, c:4}, {r:1, s: s/2, c:2}, {r:2, s: s/4, c:1} ];
+            }},
+            7: { lsKey: 'matematik_ligi_verileri_7_sinif', roundSizes: [32, 16, 8], finalCount: 8, regions: 9, matches: [
+                {p1:"Elis Defne Yıldız", p2:"Emre Opçin"}, {p1:"Derya Dinçoğlu", p2:"Ömer Eyerci"}, {p1:"İrem Gökbayrak", p2:"Derin Çetinyazıcı"}, {p1:"Yağmur Barış", p2:"Arya Karaarslan"},
+                {p1:"Ada Güzey", p2:"Alican Hakkı Keleş"}, {p1:"Abdullah Mert Çalışkan", p2:"Ayça Arslan"}, {p1:"Emir Yıldız", p2:"Mehmet Ertuğrul"}, {p1:"Mehmet Alp Kuzucuk", p2:"Mete Güngör"},
+                {p1:"Oğuzhan Vurucu", p2:"Nevra Dila Gedikli"}, {p1:"İpek Sürmegöz", p2:"Öykü Sanlı"}, {p1:"Mete Keskin", p2:"Asil Erkan"}, {p1:"Derin İşeri", p2:"Alara Akbez"},
+                {p1:"Efe Atlı", p2:"Damla Özdemir"}, {p1:"Eren Çağlar", p2:"Deniz Demir"}, {p1:"Salim Niyazi", p2:"Mehmet Alp Yıldız"}, {p1:"Erinç Gedikoğlu", p2:"Derin Akkaya"},
+                {p1:"Alya Dörtkardeş", p2:"Öykü Öymen"}, {p1:"Mehmet Can Dinmez", p2:"Asya Demirci"}, {p1:"Zeynep Erva Çelik", p2:"Cemal Tarık Şenol"}, {p1:"Can Karan Nurtaş", p2:"Doğa Çetin"},
+                {p1:"Asya Ela Demirel", p2:"Mina Vatansever"}, {p1:"Masal Baş", p2:"Efe Kemal Özüçer"}, {p1:"Artin Hasanzade", p2:"Amada Zuhal Dibo"}, {p1:"Seoyeon Lee", p2:"Zeynep Aslı Işık"},
+                {p1:"Enes Çakıllar", p2:"Elif Çim"}, {p1:"Birce Ela Yılmaz", p2:"Duru Tarlığ"}, {p1:"Fatma Umray Erdem", p2:"Mete Özbek"}, {p1:"Sarya Çoban", p2:"Hüseyin Yaşar"},
+                {p1:"Can Erkayhan", p2:"Ata Deniz Dağlarca"}, {p1:"Sait Yetkin", p2:"Mete Oskay"}, {p1:"Begüm Naz Güngör", p2:"Naz Öksüz"}, {p1:"Çınar Utku Ülgen", p2:"Umut Güney Özdemir"}
+            ],
+            fullRender: [
+                {r:0, s:0, c:16, align:'left'}, {r:1, s:0, c:8, align:'left'}, {r:2, s:0, c:4, align:'left'},
+                {r:2, s:4, c:4, align:'right'}, {r:1, s:8, c:8, align:'right'}, {r:0, s:16, c:16, align:'right'}
+            ],
+            getRegionRanges: function(rId) {
+                let s = (rId - 1) * 4;
+                return [ {r:0, s: s, c:4}, {r:1, s: s/2, c:2}, {r:2, s: s/4, c:1} ];
+            }}
+        };
+
+        let brackets = { 5: null, 6: null, 7: null };
+        let activeGrade = 5;
+        let activeMainTab = 'full';
+        let warningStep = 0;
+        let activeRegion = 1; 
+        let activeScoreRound = 0;
+
+        // ================= UYARI & ŞAKA MOTORU =================
+        function attemptSwitchToScores() {
+            if (activeMainTab === 'scores') return;
+
+            const isAccepted = localStorage.getItem('warning_accepted_' + activeGrade);
+            if (isAccepted === 'true') {
+                switchMainTab('scores');
+                return;
+            }
+
+            warningStep = 0;
+            document.getElementById('warning-text').innerText = "⚠️ Bu bölüm tüm öğrencilerin bireysel sınav sonuçlarını içermektedir. KVKK gereği sınıfta bu ekranın paylaşımı tavsiye edilmez. Karar ve sorumluluk size aittir.";
+            document.getElementById('warning-confirm').innerText = "Anladım, Onaylıyorum";
+            document.getElementById('modal-footer').style.display = 'block';
+            document.getElementById('warning-modal').style.display = 'flex';
         }
 
-        // Google Maps Link Üretici Fonksiyon
-        function generateMapsLink(origin, destination, isOsmangazi, isOtoyol) {
-            if (isOsmangazi && isOtoyol) {
-                // En hızlı, tam paralı yol
-                return `https://www.google.com/maps/dir/${origin}/${destination}/`;
-            } else if (!isOsmangazi && !isOtoyol) {
-                // Tamamen ücretsiz (Körfezi dolaşır, eski yolu kullanır)
-                return `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&avoid=tolls`;
-            } else if (isOsmangazi && !isOtoyol) {
-                // Sadece Osmangazi'yi kullan, otoyolu kullanma (Ara durak Susurluk atarak devlet yoluna zorlar)
-                return `https://www.google.com/maps/dir/${origin}/Osmangazi+K%C3%B6pr%C3%BCs%C3%BC/Susurluk/${destination}/`;
-            } else {
-                // Sadece İzmir Otoyolunu kullan, köprüyü kullanma (Körfezi dolaşıp Yalova/Gölcük üzerinden otoyola girer)
-                return `https://www.google.com/maps/dir/${origin}/G%C3%B6lc%C3%BCk/${destination}/`;
+        function closeWarningModal() { document.getElementById('warning-modal').style.display = 'none'; }
+
+        function processWarning() {
+            if (warningStep === 0) {
+                document.getElementById('warning-confirm').innerText = "Emin misiniz?";
+                warningStep++;
+            } else if (warningStep === 1) {
+                document.getElementById('warning-text').innerText = "Siz bilirsiniz, ben uyardım... 🤷‍♂️";
+                document.getElementById('modal-footer').style.display = 'none';
+                
+                localStorage.setItem('warning_accepted_' + activeGrade, 'true');
+
+                setTimeout(() => {
+                    closeWarningModal();
+                    switchMainTab('scores');
+                }, 2500);
             }
         }
 
-        function hesapla() {
-            // --- ARABA + OTEL HESAPLAMALARI ---
-            const tuketim = formatNumberInput(document.getElementById('tuketim').value);
-            const fiyat = formatNumberInput(document.getElementById('fiyat').value);
+        // ================= MANTIK MOTORU =================
+        function buildBaseBracket(grade) {
+            let conf = gradeConfigs[grade];
+            return [
+                conf.matches.map(m => ({ p1: m.p1, p2: m.p2, winner: null, wait: false, s: { p1m1: '', p2m1: '', p1m2: '', p2m2: '' } })),
+                Array(conf.roundSizes[1]).fill(null).map(() => ({ p1: null, p2: null, winner: null, wait: false, s: { p1m1: '', p2m1: '', p1m2: '', p2m2: '' } })),
+                Array(conf.roundSizes[2]).fill(null).map(() => ({ p1: null, p2: null, winner: null, wait: false, s: { p1m1: '', p2m1: '', p1m2: '', p2m2: '' } }))
+            ];
+        }
+
+        function switchGrade(grade) {
+            activeGrade = grade;
+            activeRegion = 1;     
+            activeScoreRound = 0; 
             
-            const otel = 4310; 
-            
-            const osmangaziGidis = document.getElementById('osmangazi_gidis').checked;
-            const otoyolGidis = document.getElementById('otoyol_gidis').checked;
-            
-            const osmangaziDonus = document.getElementById('osmangazi_donus').checked;
-            const otoyolDonus = document.getElementById('otoyol_donus').checked;
+            document.querySelectorAll('.grade-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('grade-btn-' + grade).classList.add('active');
+            document.getElementById('grade-title').innerText = grade + ". SINIFLAR KONTROL PANELİ";
+            buildRegionNav();
+            buildScoreNav();
+            switchMainTab(activeMainTab === 'scores' ? 'full' : activeMainTab);
+        }
 
-            const ucretOsmangazi = 995;
-            const ucretOtoyol = 1470;
-
-            // MESAFE HESAPLAMASI
-            let gidisMesafe = 530;
-            if (osmangaziGidis) gidisMesafe -= 80; 
-            if (otoyolGidis) gidisMesafe -= 50;    
-
-            let donusMesafe = 530;
-            if (osmangaziDonus) donusMesafe -= 80;
-            if (otoyolDonus) donusMesafe -= 50;
-
-            const toplamMesafe = gidisMesafe + donusMesafe;
-            
-            // Arayüzdeki km güncellemeleri
-            document.getElementById('toplamMesafeGosterge').innerText = toplamMesafe + ' km';
-            document.getElementById('gidisKm').innerText = gidisMesafe;
-            document.getElementById('donusKm').innerText = donusMesafe;
-
-            // DİNAMİK LİNKLERİ OLUŞTUR VE GÜNCELLE
-            const gidisLinki = generateMapsLink("Istanbul", "Izmir", osmangaziGidis, otoyolGidis);
-            const donusLinki = generateMapsLink("Izmir", "Istanbul", osmangaziDonus, otoyolDonus);
-            
-            document.getElementById('linkGidis').href = gidisLinki;
-            document.getElementById('linkDonus').href = donusLinki;
-
-            // Yakıt Masrafı
-            const yakitMasrafi = (toplamMesafe / 100) * tuketim * fiyat;
-            
-            // Gişe Masrafları
-            let giseMasrafi = 0;
-            if (osmangaziGidis) giseMasrafi += ucretOsmangazi;
-            if (otoyolGidis) giseMasrafi += ucretOtoyol;
-            if (osmangaziDonus) giseMasrafi += ucretOsmangazi;
-            if (otoyolDonus) giseMasrafi += ucretOtoyol;
-
-            // Araba Genel Toplam
-            const arabaGenelToplam = yakitMasrafi + giseMasrafi + otel;
-
-            // MASRAF KALEMLERİNİ EKRANA YAZDIR
-            document.getElementById('toplamYakitGosterge').innerText = yakitMasrafi.toLocaleString('tr-TR', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' ₺';
-            document.getElementById('toplamGiseGosterge').innerText = giseMasrafi.toLocaleString('tr-TR', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' ₺';
-            document.getElementById('arabaToplamTutar').innerText = arabaGenelToplam.toLocaleString('tr-TR', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' ₺';
-
-            // --- UÇAK HESAPLAMALARI (Sabit 2 kişi) ---
-            const biletFiyati = formatNumberInput(document.getElementById('biletFiyati').value);
-            const kisiSayisi = 2; // Artık kod üzerinden sabit
-
-            const ucakGenelToplam = biletFiyati * 2 * kisiSayisi; // Bilet x Git-Gel(2) x Kişi(2)
-            document.getElementById('ucakToplamTutar').innerText = ucakGenelToplam.toLocaleString('tr-TR', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' ₺';
-
-            // --- KIYASLAMA MANTIĞI ---
-            const sonucKutusu = document.getElementById('sonucKutusu');
-            const sonucMetni = document.getElementById('sonucMetni');
-            const farkMetni = document.getElementById('farkMetni');
-            
-            const fark = Math.abs(arabaGenelToplam - ucakGenelToplam);
-            const formatliFark = fark.toLocaleString('tr-TR', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' ₺';
-
-            if (arabaGenelToplam < ucakGenelToplam) {
-                sonucKutusu.className = "mt-8 p-6 rounded-xl text-center border-2 border-blue-400 bg-blue-50 transition-colors duration-300 shadow-sm";
-                sonucMetni.className = "text-3xl font-black text-blue-700";
-                sonucMetni.innerText = "🚗 Araba ile gitmek daha kârlı!";
-                farkMetni.innerText = `Uçağa kıyasla cebinizde ${formatliFark} kalır.`;
-            } else if (ucakGenelToplam < arabaGenelToplam) {
-                sonucKutusu.className = "mt-8 p-6 rounded-xl text-center border-2 border-orange-400 bg-orange-50 transition-colors duration-300 shadow-sm";
-                sonucMetni.className = "text-3xl font-black text-orange-700";
-                sonucMetni.innerText = "✈️ Uçakla gitmek daha kârlı!";
-                farkMetni.innerText = `Arabaya kıyasla cebinizde ${formatliFark} kalır.`;
-            } else {
-                sonucKutusu.className = "mt-8 p-6 rounded-xl text-center border-2 border-slate-300 bg-slate-100 transition-colors duration-300 shadow-sm";
-                sonucMetni.className = "text-3xl font-black text-slate-700";
-                sonucMetni.innerText = "⚖️ İki seçenek de aynı fiyata geliyor!";
-                farkMetni.innerText = "Karar tamamen konfor tercihinize kalmış.";
+        function buildRegionNav() {
+            const nav = document.getElementById('region-nav-container');
+            nav.innerHTML = '';
+            const count = gradeConfigs[activeGrade].regions;
+            for(let i=1; i<=count; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'region-btn';
+                btn.innerText = i === count ? `🏆 Son ${gradeConfigs[activeGrade].finalCount}` : i + ". Sayfa";
+                btn.onclick = () => { document.querySelectorAll('.region-btn').forEach(x=>x.classList.remove('active')); btn.classList.add('active'); activeRegion = i; renderRegion(i); };
+                if (i === activeRegion) btn.classList.add('active');
+                nav.appendChild(btn);
             }
         }
 
-        // Sayfa yüklendiğinde hesaplamayı çalıştır
-        window.onload = hesapla;
+        function buildScoreNav() {
+            const nav = document.getElementById('score-round-selector');
+            nav.innerHTML = '';
+            for(let i=0; i<3; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'region-btn';
+                btn.innerText = (i+1) + ". Tur";
+                btn.onclick = () => { document.querySelectorAll('#score-round-selector .region-btn').forEach(x=>x.classList.remove('active')); btn.classList.add('active'); activeScoreRound = i; renderScoreRound(i); };
+                if (i === activeScoreRound) btn.classList.add('active');
+                nav.appendChild(btn);
+            }
+        }
+
+        function switchMainTab(tab) {
+            activeMainTab = tab;
+            ['view-full', 'view-league', 'view-scores', 'view-import'].forEach(v => document.getElementById(v).style.display = 'none');
+            document.getElementById('view-' + tab).style.display = 'block';
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + tab).classList.add('active');
+            
+            if(tab === 'full') renderFull();
+            if(tab === 'league') renderRegion(activeRegion);
+            if(tab === 'scores') renderScoreRound(activeScoreRound);
+        }
+
+        // Skor Hesaplama
+        function getScores(match) {
+            let p1s1 = parseInt(match.s.p1m1)||0, p1s2 = parseInt(match.s.p1m2)||0;
+            let p2s1 = parseInt(match.s.p2m1)||0, p2s2 = parseInt(match.s.p2m2)||0;
+            let p1c = (match.s.p1m1!==''?1:0) + (match.s.p1m2!==''?1:0);
+            let p2c = (match.s.p2m1!==''?1:0) + (match.s.p2m2!==''?1:0);
+            if(p1c===0 && p2c===0) return {s1:-1, s2:-1, t1:"-", t2:"-"};
+            if(p1c===2 && p2c===2) return {s1:p1s1+p1s2, s2:p2s1+p2s2, t1:"Top: "+(p1s1+p1s2), t2:"Top: "+(p2s1+p2s2)};
+            let s1 = p1c===2 ? Math.max(p1s1,p1s2) : p1s1+p1s2;
+            let s2 = p2c===2 ? Math.max(p2s1,p2s2) : p2s1+p2s2;
+            if(p1c===0) return {s1:-1, s2:s2, t1:"Elendi", t2:"Skor: "+s2};
+            if(p2c===0) return {s1:s1, s2:-1, t1:"Skor: "+s1, t2:"Elendi"};
+            return {s1, s2, t1:"Skor: "+s1, t2:"Skor: "+s2};
+        }
+
+        function renderScoreRound(rIdx) {
+            const container = document.getElementById('score-cards-container');
+            container.innerHTML = '';
+            brackets[activeGrade][rIdx].forEach((m, mIdx) => {
+                if(!m.p1 && !m.p2) return;
+                const {t1, t2} = getScores(m);
+                const card = document.createElement('div');
+                card.className = `score-card ${m.winner?'completed':''} ${m.wait?'paused':''}`;
+                card.innerHTML = `
+                    <div class="score-card-header"><span>Maç #${mIdx+1}</span> <button class="wait-btn ${m.wait?'active':''}" onclick="toggleWait(${rIdx},${mIdx})">${m.wait?'📝 Bekliyor':'⏳ Duraklat'}</button></div>
+                    <div class="score-row"><div class="score-player-name ${m.winner===1?'is-winner':''}">${m.p1||'--'}</div><input type="number" class="score-input" value="${m.s.p1m1}" onchange="updateScore(${rIdx},${mIdx},'p1m1',this.value)"><input type="number" class="score-input" value="${m.s.p1m2}" onchange="updateScore(${rIdx},${mIdx},'p1m2',this.value)"><div class="score-total">${t1}</div></div>
+                    <div class="score-row"><div class="score-player-name ${m.winner===2?'is-winner':''}">${m.p2||'--'}</div><input type="number" class="score-input" value="${m.s.p2m1}" onchange="updateScore(${rIdx},${mIdx},'p2m1',this.value)"><input type="number" class="score-input" value="${m.s.p2m2}" onchange="updateScore(${rIdx},${mIdx},'p2m2',this.value)"><div class="score-total">${t2}</div></div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function updateScore(r, m, f, v) {
+            brackets[activeGrade][r][m].s[f] = v;
+            autoAdvance(r, m);
+            renderScoreRound(r);
+            localStorage.setItem(gradeConfigs[activeGrade].lsKey, JSON.stringify(brackets[activeGrade]));
+        }
+
+        function toggleWait(r, m) {
+            brackets[activeGrade][r][m].wait = !brackets[activeGrade][r][m].wait;
+            autoAdvance(r, m);
+            renderScoreRound(r);
+        }
+
+        function autoAdvance(r, m) {
+            let match = brackets[activeGrade][r][m];
+            if(!match.p1 || !match.p2) return;
+            let {s1, s2} = getScores(match);
+            let win = null;
+            if(!match.wait) { if(s1 > s2) win = 1; else if(s2 > s1) win = 2; }
+            match.winner = win;
+            if(r < 2) {
+                let nextM = Math.floor(m/2), slot = m%2===0?'p1':'p2';
+                brackets[activeGrade][r+1][nextM][slot] = win ? (win===1?match.p1:match.p2) : null;
+            }
+        }
+
+        // FULL EKRAN KODU
+        function renderFull() {
+            const container = document.getElementById('bracket-container');
+            container.innerHTML = '';
+            for(let r=0; r<3; r++) {
+                const col = document.createElement('div');
+                col.className = 'col';
+                brackets[activeGrade][r].forEach((match, mIdx) => {
+                    const matchEl = document.createElement('div');
+                    matchEl.className = 'match';
+                    const p1El = document.createElement('div');
+                    p1El.className = 'player' + (match.winner === 1 ? ' winner' : '');
+                    p1El.innerText = match.p1 || '-';
+                    const p2El = document.createElement('div');
+                    p2El.className = 'player' + (match.winner === 2 ? ' winner' : '');
+                    p2El.innerText = match.p2 || '-';
+                    matchEl.appendChild(p1El); matchEl.appendChild(p2El); col.appendChild(matchEl);
+                });
+                container.appendChild(col);
+                if(r===2) container.appendChild(createFinalBox(false));
+            }
+        }
+
+        function renderRegion(regId) {
+            const container = document.getElementById('region-container');
+            container.innerHTML = '';
+            const conf = gradeConfigs[activeGrade];
+
+            if (regId === conf.regions) {
+                container.style.justifyContent = 'center';
+                container.style.minWidth = '100%'; 
+                container.appendChild(createFinalBox(true));
+                return;
+            }
+
+            container.style.justifyContent = 'flex-start';
+            container.style.minWidth = '1000px'; 
+            
+            let s = (regId - 1) * 4;
+            let ranges = [ {r:0, s: s, c:4}, {r:1, s: s/2, c:2}, {r:2, s: s/4, c:1} ];
+
+            ranges.forEach(range => {
+                const col = document.createElement('div');
+                col.className = 'col';
+                for (let i = 0; i < range.c; i++) {
+                    const matchIdx = range.s + i;
+                    const match = brackets[activeGrade][range.r][matchIdx];
+                    if(!match) continue;
+                    const matchEl = document.createElement('div');
+                    matchEl.className = 'match region-match';
+                    const p1El = document.createElement('div');
+                    p1El.className = 'player region-player' + (match.winner === 1 ? ' winner' : '');
+                    p1El.innerText = match.p1 || '-';
+                    const p2El = document.createElement('div');
+                    p2El.className = 'player region-player' + (match.winner === 2 ? ' winner' : '');
+                    p2El.innerText = match.p2 || '-';
+                    matchEl.appendChild(p1El); matchEl.appendChild(p2El); col.appendChild(matchEl);
+                }
+                container.appendChild(col);
+            });
+        }
+
+        function createFinalBox(isRegion = false) {
+            const col = document.createElement('div');
+            col.className = 'final-col';
+            const count = gradeConfigs[activeGrade].finalCount;
+            const box = document.createElement('div');
+            box.className = 'final-box' + (isRegion ? ' region-final-box' : '');
+            box.innerHTML = `<div class="cup-icon ${isRegion ? 'region-cup-icon' : ''}">🏆</div><div class="final-title">ODİTORYUM FİNALİSTLERİ (SON ${count})</div>`;
+            const list = document.createElement('div');
+            list.className = 'final-list';
+            for(let i=0; i < count; i++) {
+                const m = brackets[activeGrade][2][i];
+                let finalistName = "-";
+                if(m && m.winner === 1) finalistName = m.p1;
+                else if(m && m.winner === 2) finalistName = m.p2;
+                const nameEl = document.createElement('div');
+                nameEl.className = 'finalist-name';
+                nameEl.innerText = finalistName;
+                list.appendChild(nameEl);
+            }
+            box.appendChild(list); col.appendChild(box);
+            return col;
+        }
+
+        // ================= DOSYA/KAYIT VE EXCEL (DÜZELTİLEN) =================
+        function exportJSON() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(brackets[activeGrade]));
+            const dlAnchorElem = document.createElement('a');
+            dlAnchorElem.setAttribute("href", dataStr);
+            dlAnchorElem.setAttribute("download", `${activeGrade}_sinif_matematik_ligi.json`);
+            document.body.appendChild(dlAnchorElem);
+            dlAnchorElem.click(); dlAnchorElem.remove();
+        }
+
+        function importJSON(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    brackets[activeGrade] = JSON.parse(e.target.result);
+                    localStorage.setItem(gradeConfigs[activeGrade].lsKey, JSON.stringify(brackets[activeGrade]));
+                    switchMainTab(activeMainTab);
+                } catch (err) { alert("Dosya bozuk veya hatalı!"); }
+            };
+            reader.readAsText(file);
+            event.target.value = ""; 
+        }
+
+        function manualSaveToBrowser() {
+            localStorage.setItem(gradeConfigs[activeGrade].lsKey, JSON.stringify(brackets[activeGrade]));
+            alert(activeGrade + ". Sınıf verileri tarayıcıya başarıyla kaydedildi!");
+        }
+
+        function resetBracket() {
+            if(confirm(`SADECE ${activeGrade}. SINIFLARIN tüm ilerlemesini sıfırlamak istediğinize emin misiniz?`)) {
+                brackets[activeGrade] = buildBaseBracket(activeGrade);
+                localStorage.setItem(gradeConfigs[activeGrade].lsKey, JSON.stringify(brackets[activeGrade]));
+                switchMainTab(activeMainTab);
+            }
+        }
+
+        function processExcelImport() {
+            const text = document.getElementById('import-textarea').value;
+            const roundIdx = parseInt(document.getElementById('import-round').value);
+            const matchNum = document.getElementById('import-match').value;
+            const logBox = document.getElementById('import-log');
+
+            if(!text.trim()) {
+                logBox.innerHTML = "<span style='color:red;'>Lütfen tabloya veri yapıştırın!</span>";
+                return;
+            }
+
+            const lines = text.split('\n');
+            let logHTML = '<ul>';
+            let successCount = 0;
+
+            lines.forEach(line => {
+                if(!line.trim()) return;
+                const parts = line.split(/\t|,| {2,}/); 
+                if(parts.length < 2) { logHTML += `<li style="color:#ef4444;">Hatalı format: ${line}</li>`; return; }
+                
+                const scorePart = parts.pop().trim();
+                const namePart = parts.join(' ').trim().toLocaleLowerCase('tr-TR');
+                const score = parseInt(scorePart);
+                
+                if(isNaN(score)) { logHTML += `<li style="color:#ef4444;">Geçersiz puan: ${line}</li>`; return; }
+
+                let found = false;
+                for(let i = 0; i < brackets[activeGrade][roundIdx].length; i++) {
+                    let match = brackets[activeGrade][roundIdx][i];
+                    if(!match) continue;
+                    
+                    if(match.p1 && match.p1.toLocaleLowerCase('tr-TR').trim() === namePart) {
+                        match.s['p1' + matchNum] = score;
+                        found = true; successCount++; autoAdvance(roundIdx, i);
+                        logHTML += `<li style="color:#10b981;"><b>Başarılı:</b> ${match.p1} -> ${score} Puan eklendi.</li>`; break;
+                    } else if(match.p2 && match.p2.toLocaleLowerCase('tr-TR').trim() === namePart) {
+                        match.s['p2' + matchNum] = score;
+                        found = true; successCount++; autoAdvance(roundIdx, i);
+                        logHTML += `<li style="color:#10b981;"><b>Başarılı:</b> ${match.p2} -> ${score} Puan eklendi.</li>`; break;
+                    }
+                }
+                if(!found) logHTML += `<li style="color:#f59e0b;"><b>Bulunamadı:</b> ${parts.join(' ')} (İsim uyuşmuyor)</li>`;
+            });
+            
+            logHTML += '</ul>';
+            logBox.innerHTML = `<p><strong>İşlem Tamamlandı: Seçilen ${roundIdx+1}. Tur ve Maç için ${successCount} skor aktarıldı.</strong></p>` + logHTML;
+            localStorage.setItem(gradeConfigs[activeGrade].lsKey, JSON.stringify(brackets[activeGrade]));
+            
+            // Güncel tur sekmesini yenile
+            if(activeMainTab === 'scores') renderScoreRound(activeScoreRound);
+        }
+
+        // Başlat
+        [5,6,7].forEach(g => {
+            let saved = localStorage.getItem(gradeConfigs[g].lsKey);
+            brackets[g] = saved ? JSON.parse(saved) : buildBaseBracket(g);
+        });
+        switchGrade(5);
+
     </script>
 </body>
 </html>
