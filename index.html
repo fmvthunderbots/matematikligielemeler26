@@ -487,19 +487,22 @@
             if(tab === 'scores') renderScoreRound(activeScoreRound);
         }
 
-        // Skor Hesaplama
+        // Skor Hesaplama (GÜNCELLENDİ)
         function getScores(match) {
             let p1s1 = parseInt(match.s.p1m1)||0, p1s2 = parseInt(match.s.p1m2)||0;
             let p2s1 = parseInt(match.s.p2m1)||0, p2s2 = parseInt(match.s.p2m2)||0;
             let p1c = (match.s.p1m1!==''?1:0) + (match.s.p1m2!==''?1:0);
             let p2c = (match.s.p2m1!==''?1:0) + (match.s.p2m2!==''?1:0);
+            
             if(p1c===0 && p2c===0) return {s1:-1, s2:-1, t1:"-", t2:"-"};
-            if(p1c===2 && p2c===2) return {s1:p1s1+p1s2, s2:p2s1+p2s2, t1:"Top: "+(p1s1+p1s2), t2:"Top: "+(p2s1+p2s2)};
-            let s1 = p1c===2 ? Math.max(p1s1,p1s2) : p1s1+p1s2;
-            let s2 = p2c===2 ? Math.max(p2s1,p2s2) : p2s1+p2s2;
-            if(p1c===0) return {s1:-1, s2:s2, t1:"Elendi", t2:"Skor: "+s2};
-            if(p2c===0) return {s1:s1, s2:-1, t1:"Skor: "+s1, t2:"Elendi"};
-            return {s1, s2, t1:"Skor: "+s1, t2:"Skor: "+s2};
+            
+            let s1 = p1c===0 ? -1 : p1s1 + p1s2;
+            let s2 = p2c===0 ? -1 : p2s1 + p2s2;
+            
+            let t1 = p1c===0 ? "Elendi" : (p1c===2 ? "Top: "+s1 : "Skor: "+s1);
+            let t2 = p2c===0 ? "Elendi" : (p2c===2 ? "Top: "+s2 : "Skor: "+s2);
+            
+            return {s1, s2, t1, t2};
         }
 
         function renderScoreRound(rIdx) {
@@ -630,7 +633,7 @@
             return col;
         }
 
-        // ================= DOSYA/KAYIT VE EXCEL (DÜZELTİLEN) =================
+        // ================= DOSYA/KAYIT VE EXCEL (GÜNCELLENDİ) =================
         function exportJSON() {
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(brackets[activeGrade]));
             const dlAnchorElem = document.createElement('a');
@@ -685,12 +688,30 @@
 
             lines.forEach(line => {
                 if(!line.trim()) return;
-                const parts = line.split(/\t|,| {2,}/); 
-                if(parts.length < 2) { logHTML += `<li style="color:#ef4444;">Hatalı format: ${line}</li>`; return; }
                 
-                const scorePart = parts.pop().trim();
-                const namePart = parts.join(' ').trim().toLocaleLowerCase('tr-TR');
-                const score = parseInt(scorePart);
+                // Satırı tab karakterine veya çoklu boşluklara göre ayırıyoruz
+                let parts = line.split(/\t/);
+                if (parts.length === 1) {
+                    parts = line.trim().split(/\s{2,}/);
+                    if(parts.length === 1) {
+                        const matchData = line.trim().match(/^(.*?)\s+(\d+)\s*$/);
+                        if(matchData) parts = [matchData[1], matchData[2]];
+                    }
+                }
+
+                parts = parts.map(p => p.trim()).filter(p => p !== '');
+                
+                if(parts.length < 2) { 
+                    logHTML += `<li style="color:#ef4444;">Hatalı format: ${line}</li>`; 
+                    return; 
+                }
+                
+                // En son sütunu puan olarak al
+                const score = parseInt(parts[parts.length - 1]);
+                const rawName = parts[0]; 
+                
+                // İsim eşleşmesini kusursuz yapmak için sayıları ve fazla boşlukları temizle
+                let namePart = rawName.replace(/[0-9]/g, '').replace(/\s+/g, ' ').trim().toLocaleLowerCase('tr-TR');
                 
                 if(isNaN(score)) { logHTML += `<li style="color:#ef4444;">Geçersiz puan: ${line}</li>`; return; }
 
@@ -699,17 +720,21 @@
                     let match = brackets[activeGrade][roundIdx][i];
                     if(!match) continue;
                     
-                    if(match.p1 && match.p1.toLocaleLowerCase('tr-TR').trim() === namePart) {
+                    // Sistemdeki isimleri de formata uygun hale getir
+                    let p1Name = match.p1 ? match.p1.toLocaleLowerCase('tr-TR').replace(/\s+/g, ' ').trim() : "";
+                    let p2Name = match.p2 ? match.p2.toLocaleLowerCase('tr-TR').replace(/\s+/g, ' ').trim() : "";
+
+                    if(p1Name === namePart) {
                         match.s['p1' + matchNum] = score;
                         found = true; successCount++; autoAdvance(roundIdx, i);
                         logHTML += `<li style="color:#10b981;"><b>Başarılı:</b> ${match.p1} -> ${score} Puan eklendi.</li>`; break;
-                    } else if(match.p2 && match.p2.toLocaleLowerCase('tr-TR').trim() === namePart) {
+                    } else if(p2Name === namePart) {
                         match.s['p2' + matchNum] = score;
                         found = true; successCount++; autoAdvance(roundIdx, i);
                         logHTML += `<li style="color:#10b981;"><b>Başarılı:</b> ${match.p2} -> ${score} Puan eklendi.</li>`; break;
                     }
                 }
-                if(!found) logHTML += `<li style="color:#f59e0b;"><b>Bulunamadı:</b> ${parts.join(' ')} (İsim uyuşmuyor)</li>`;
+                if(!found) logHTML += `<li style="color:#f59e0b;"><b>Bulunamadı:</b> ${rawName}</li>`;
             });
             
             logHTML += '</ul>';
